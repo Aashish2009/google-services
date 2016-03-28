@@ -17,7 +17,6 @@
 package gcm.play.android.samples.com.gcmsender;
 
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -26,25 +25,31 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+// NOTE:
+// This class emulates a server for the purposes of this sample,
+// but it's not meant to serve as an example for a production app server.
+// This class should also not be included in the client (Android) application
+// since it includes the server's API key. For information on GCM server
+// implementation see: https://developers.google.com/cloud-messaging/server
 public class GcmSender {
 
     public static final String API_KEY = "API_KEY";
 
     public static void main(String[] args) {
         if (args.length < 1 || args.length > 2 || args[0] == null) {
-            System.err.println("usage: ./gradlew run -Pargs=\"MESSAGE[,DEVICE_TOKEN]\"");
+            System.err.println("usage: ./gradlew run -Pmsg=\"MESSAGE\" [-Pto=\"DEVICE_TOKEN\"]");
             System.err.println("");
             System.err.println("Specify a test message to broadcast via GCM. If a device's GCM registration token is\n" +
                     "specified, the message will only be sent to that device. Otherwise, the message \n" +
                     "will be sent to all devices subscribed to the \"global\" topic.");
             System.err.println("");
             System.err.println("Example (Broadcast):\n" +
-                    "On Windows:   .\\gradlew.bat run -Pargs=\"<Your_Message>\"\n" +
-                    "On Linux/Mac: ./gradlew run -Pargs=\"<Your_Message>\"");
+                    "On Windows:   .\\gradlew.bat run -Pmsg=\"<Your_Message>\"\n" +
+                    "On Linux/Mac: ./gradlew run -Pmsg=\"<Your_Message>\"");
             System.err.println("");
             System.err.println("Example (Unicast):\n" +
-                    "On Windows:   .\\gradlew.bat run -Pargs=\"<Your_Message>,<Your_Token>\"\n" +
-                    "On Linux/Mac: ./gradlew run -Pargs=\"<Your_Message>,<Your_Token>\"");
+                    "On Windows:   .\\gradlew.bat run -Pmsg=\"<Your_Message>\" -Pto=\"<Your_Token>\"\n" +
+                    "On Linux/Mac: ./gradlew run -Pmsg=\"<Your_Message>\" -Pto=\"<Your_Token>\"");
             System.exit(1);
         }
         try {

@@ -40,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   // [START openurl]
   func application(application: UIApplication,
-    openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
       let invite = GINInvite.handleURL(url, sourceApplication:sourceApplication, annotation:annotation)
 
       if (invite != nil) {
         GINInvite.completeInvitation()
         let matchType =
             (invite.matchType == GINReceivedInviteMatchType.Weak) ? "Weak" : "Strong"
-        println("Invite received from: \(sourceApplication) Deeplink: \(invite.deepLink)," +
+        print("Invite received from: \(sourceApplication) Deeplink: \(invite.deepLink)," +
             "Id: \(invite.inviteId), Type: \(matchType)")
         GINInvite.convertInvitation(invite.inviteId)
         return true
